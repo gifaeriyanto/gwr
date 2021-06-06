@@ -1,7 +1,7 @@
 {
   "name": "gwr",
   "description": "GWR, a CLI that makes it easy for us to open projects anywhere.",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "author": "Gifa Eriyanto @gifaeriyanto",
   "bin": {
     "gwr": "./bin/run"
