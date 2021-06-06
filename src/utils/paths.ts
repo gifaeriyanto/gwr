@@ -1,6 +1,6 @@
 import { homedir } from 'os';
 
-export const basePath = homedir() + '/.wr';
+export const basePath = homedir() + '/.gwr';
 
 export const getProjectName = (dir: string) => {
   const dirSplitted = dir.split('/');

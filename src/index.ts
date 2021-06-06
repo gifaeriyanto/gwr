@@ -12,9 +12,9 @@ enum SubCommands {
   add = 'add',
 }
 
-class Wr extends Command {
+class Gwr extends Command {
   static description =
-    'WR, a CLI that makes it easy for us to open projects anywhere.';
+    'GWR, a CLI that makes it easy for us to open projects anywhere.';
 
   static args = [
     {
@@ -75,7 +75,7 @@ class Wr extends Command {
         choices: [
           { name: 'Open with Visual Studio Code', value: 0 },
           { name: 'Reveal in finder', value: 1 },
-          { name: 'Delete this project from WR', value: 2 },
+          { name: 'Delete this project from GWR', value: 2 },
         ],
       },
     ]);
@@ -96,7 +96,7 @@ class Wr extends Command {
 
       case 2:
         deleteProject(projectDir, () => {
-          cli.action.start(`Deleting ${projectName} from WR`);
+          cli.action.start(`Deleting ${projectName} from GWR`);
         });
 
       default:
@@ -105,8 +105,8 @@ class Wr extends Command {
   }
 
   async run() {
-    Wr.initStore();
-    const { args } = this.parse(Wr);
+    Gwr.initStore();
+    const { args } = this.parse(Gwr);
 
     if (args.subcommands === SubCommands.add) {
       this.add();
@@ -116,4 +116,4 @@ class Wr extends Command {
   }
 }
 
-export = Wr;
+export = Gwr;

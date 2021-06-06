@@ -1,12 +1,12 @@
 {
-  "name": "wr",
-  "description": "WR, a CLI that makes it easy for us to open projects anywhere.",
+  "name": "gwr",
+  "description": "GWR, a CLI that makes it easy for us to open projects anywhere.",
   "version": "1.0.0",
   "author": "Gifa Eriyanto @gifaeriyanto",
   "bin": {
-    "wr": "./bin/run"
+    "gwr": "./bin/run"
   },
-  "bugs": "https://github.com/gifaeriyanto/wr/issues",
+  "bugs": "https://github.com/gifaeriyanto/gwr/issues",
   "dependencies": {
     "@oclif/command": "^1",
     "@oclif/config": "^1",
@@ -32,16 +32,16 @@
     "/bin",
     "/lib"
   ],
-  "homepage": "https://github.com/gifaeriyanto/wr",
+  "homepage": "https://github.com/gifaeriyanto/gwr",
   "keywords": [
     "oclif"
   ],
   "license": "MIT",
   "main": "lib/index.js",
   "oclif": {
-    "bin": "wr"
+    "bin": "gwr"
   },
-  "repository": "gifaeriyanto/wr",
+  "repository": "gifaeriyanto/gwr",
   "scripts": {
     "posttest": "eslint . --ext .ts --config .eslintrc",
     "prepack": "rm -rf lib && tsc -b && oclif-dev readme",
