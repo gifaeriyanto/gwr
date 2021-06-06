@@ -12,6 +12,7 @@
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^3",
     "inquirer": "^8.1.0",
+    "inquirer-search-list": "^1.2.6",
     "tslib": "^1"
   },
   "devDependencies": {
