@@ -58,6 +58,15 @@ class Gwr extends Command {
     const projectList = readdirSync(basePath, { withFileTypes: true })
       .filter((dirent) => dirent.isSymbolicLink())
       .map(({ name }) => name);
+
+    if (!projectList.length) {
+      this.log(
+        `You still don't have any projects added to GWR\nPlease go to your project folder and run the command below:`,
+      );
+      this.log(`\n> gwr add\n`);
+      return;
+    }
+
     const { projectName } = await inquirer.prompt([
       {
         name: 'projectName',
