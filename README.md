@@ -16,48 +16,21 @@ GWR, a CLI that makes it easy for us to open projects anywhere.
 # Usage
 
 <!-- usage -->
-
-## Installation
-
-```
-npm install -g gwr
-```
-
-## Examples (Run it and see it)
-
-### Add Project
-
-Go to your project folder and run the command below:
-
 ```sh-session
-gwr add
-```
-
-### List
-
-Run the command below anywhere:
-
-```sh-session
-gwr
-```
-
-And then, you will see prompts like this:
-
-```sh-session
-✔︎ ~ gwr
-? Select project
-❯ project-1
-  project-2
-  project-3
+$ npm install -g gwr
+$ gwr COMMAND
+running command...
+$ gwr (-v|--version|version)
+gwr/1.0.2 darwin-x64 node-v14.13.1
+$ gwr --help [COMMAND]
+USAGE
+  $ gwr COMMAND
+...
 ```
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
-
-`gwr` get project list
-
-`gwr add` add project (must be in the project folder you want to add)
 
 <!-- commandsstop -->
