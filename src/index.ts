@@ -14,7 +14,7 @@ enum SubCommands {
 
 class Gwr extends Command {
   static description =
-    'GWR, a CLI that makes it easy for us to open projects anywhere.';
+    'GWR, a CLI that makes it easy to open projects anywhere.';
 
   static args = [
     {

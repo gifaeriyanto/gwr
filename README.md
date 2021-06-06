@@ -1,6 +1,6 @@
 # gwr
 
-GWR, a CLI that makes it easy for us to open projects anywhere.
+GWR, a CLI that makes it easy to open projects anywhere.
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/gwr.svg)](https://npmjs.org/package/gwr)
