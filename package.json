@@ -1,7 +1,7 @@
 {
   "name": "gwr",
   "description": "GWR, a CLI that makes it easy for us to open projects anywhere.",
-  "version": "1.0.5",
+  "version": "1.0.4",
   "author": "Gifa Eriyanto @gifaeriyanto",
   "bin": {
     "gwr": "./bin/run"
@@ -46,8 +46,7 @@
   "scripts": {
     "posttest": "eslint . --ext .ts --config .eslintrc",
     "prepack": "rm -rf lib && tsc -b",
-    "test": "echo NO TESTS",
-    "version": "oclif-dev readme && git add README.md"
+    "test": "echo NO TESTS"
   },
   "types": "lib/index.d.ts"
 }
