@@ -1,7 +1,7 @@
 {
   "name": "gwr",
   "description": "GWR, a CLI that makes it easy for us to open projects anywhere.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Gifa Eriyanto @gifaeriyanto",
   "bin": {
     "gwr": "./bin/run"
@@ -11,6 +11,7 @@
     "@oclif/command": "^1",
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^3",
+    "cli-ux": "^5.5.1",
     "inquirer": "^8.1.0",
     "inquirer-search-list": "^1.2.6",
     "tslib": "^1"

@@ -8,27 +8,25 @@ GWR, a CLI that makes it easy for us to open projects anywhere.
 [![License](https://img.shields.io/npm/l/gwr.svg)](https://github.com/gifaeriyanto/gwr/blob/master/package.json)
 
 <!-- toc -->
-
-- [Usage](#usage)
-- [Commands](#commands)
+* [gwr](#gwr)
+* [Usage](#usage)
+* [Commands](#commands)
 <!-- tocstop -->
 
 # Usage
 
 <!-- usage -->
-
 ```sh-session
 $ npm install -g gwr
 $ gwr COMMAND
 running command...
 $ gwr (-v|--version|version)
-gwr/1.0.0 darwin-x64 node-v14.13.1
+gwr/1.0.1 darwin-x64 node-v14.13.1
 $ gwr --help [COMMAND]
 USAGE
   $ gwr COMMAND
 ...
 ```
-
 <!-- usagestop -->
 
 # Commands
