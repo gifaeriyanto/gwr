@@ -1,16 +1,18 @@
 import { Command, flags } from '@oclif/command';
-import { exec, ExecException } from 'child_process';
-import { existsSync, fstat, mkdirSync, readdirSync, symlink, unlink } from 'fs';
-import { homedir } from 'os';
+import { exec } from 'child_process';
+import { existsSync, mkdirSync, readdirSync, symlink } from 'fs';
 import * as inquirer from 'inquirer';
 import cli from 'cli-ux';
+import { deleteProject, openWithVSCode, revealInFinder } from './utils/actions';
+import { basePath, getProjectName } from './utils/paths';
+
+inquirer.registerPrompt('search-list', require('inquirer-search-list'));
 
 enum SubCommands {
   add = 'add',
 }
 
 class Wr extends Command {
-  static dir: string = homedir() + '/.wr';
   static description =
     'WR, a CLI that makes it easy for us to open projects anywhere.';
 
@@ -29,8 +31,8 @@ class Wr extends Command {
   };
 
   static initStore() {
-    if (!existsSync(this.dir)) {
-      mkdirSync(this.dir);
+    if (!existsSync(basePath)) {
+      mkdirSync(basePath);
     }
   }
 
@@ -40,9 +42,8 @@ class Wr extends Command {
         return;
       }
 
-      const currentDirSplitted = currentDir.split('/');
-      const projectName = currentDirSplitted[currentDirSplitted.length - 1];
-      const dest = `${Wr.dir}/${projectName}`;
+      const projectName = getProjectName(currentDir);
+      const dest = `${basePath}/${projectName}`;
       symlink(currentDir.trim(), dest.trim(), 'junction', (err) => {
         if (err) {
           this.warn('Project already added');
@@ -53,44 +54,15 @@ class Wr extends Command {
     });
   }
 
-  static openWithVSCode(
-    dir: string,
-    callback?: (
-      err: ExecException | null,
-      stdout: string,
-      stderr: string,
-    ) => void,
-  ) {
-    exec(`code ${dir}`, callback);
-  }
-
-  static revealInFinder(
-    dir: string,
-    callback?: (
-      err: ExecException | null,
-      stdout: string,
-      stderr: string,
-    ) => void,
-  ) {
-    exec(`open ${dir}`, callback);
-  }
-
-  static deleteProject(
-    dir: string,
-    callback: (err: NodeJS.ErrnoException | null) => void,
-  ) {
-    unlink(dir, callback);
-  }
-
   async getList() {
-    const projectList = readdirSync(Wr.dir, { withFileTypes: true })
+    const projectList = readdirSync(basePath, { withFileTypes: true })
       .filter((dirent) => dirent.isSymbolicLink())
       .map(({ name }) => name);
     const { projectName } = await inquirer.prompt([
       {
         name: 'projectName',
         message: 'Select project',
-        type: 'list',
+        type: 'search-list',
         choices: projectList,
       },
     ]);
@@ -108,22 +80,22 @@ class Wr extends Command {
       },
     ]);
 
-    const projectDir = Wr.dir + '/' + projectName;
+    const projectDir = basePath + '/' + projectName;
     switch (action) {
       case 0:
-        Wr.openWithVSCode(projectDir, () => {
+        openWithVSCode(projectDir, () => {
           cli.action.start(`Opening ${projectName} with Visual Studio Code`);
         });
         break;
 
       case 1:
-        Wr.revealInFinder(projectDir, () => {
+        revealInFinder(projectDir, () => {
           cli.action.start(`Reveal ${projectName} in Finder`);
         });
         break;
 
       case 2:
-        Wr.deleteProject(projectDir, () => {
+        deleteProject(projectDir, () => {
           cli.action.start(`Deleting ${projectName} from WR`);
         });
 
