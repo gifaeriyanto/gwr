@@ -21,7 +21,7 @@ $ npm install -g gwr
 $ gwr COMMAND
 running command...
 $ gwr (-v|--version|version)
-gwr/1.0.3 darwin-x64 node-v14.13.1
+gwr/1.0.4 darwin-x64 node-v14.13.1
 $ gwr --help [COMMAND]
 USAGE
   $ gwr COMMAND
