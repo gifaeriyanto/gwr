@@ -1,24 +1,25 @@
 import { Command, flags } from '@oclif/command';
-import { exec } from 'child_process';
-import { existsSync, mkdirSync, readdirSync, symlink } from 'fs';
+import { exec, ExecException } from 'child_process';
+import { existsSync, fstat, mkdirSync, readdirSync, symlink, unlink } from 'fs';
 import { homedir } from 'os';
 import * as inquirer from 'inquirer';
 import cli from 'cli-ux';
 
 enum SubCommands {
   add = 'add',
-  delete = 'delete',
 }
 
 class Wr extends Command {
   static dir: string = homedir() + '/.wr';
-  static description = 'Shortcut to your projects';
+  static description =
+    'WR, a CLI that makes it easy for us to open projects anywhere.';
 
   static args = [
     {
       name: 'subcommands',
       options: Object.values(SubCommands),
       required: false,
+      description: 'Subcommands which able to use',
     },
   ];
 
@@ -52,12 +53,33 @@ class Wr extends Command {
     });
   }
 
-  static openWithVSCode(dir: string) {
-    exec(`code ${dir}`);
+  static openWithVSCode(
+    dir: string,
+    callback?: (
+      err: ExecException | null,
+      stdout: string,
+      stderr: string,
+    ) => void,
+  ) {
+    exec(`code ${dir}`, callback);
   }
 
-  static revealInFinder(dir: string) {
-    exec(`open ${dir}`);
+  static revealInFinder(
+    dir: string,
+    callback?: (
+      err: ExecException | null,
+      stdout: string,
+      stderr: string,
+    ) => void,
+  ) {
+    exec(`open ${dir}`, callback);
+  }
+
+  static deleteProject(
+    dir: string,
+    callback: (err: NodeJS.ErrnoException | null) => void,
+  ) {
+    unlink(dir, callback);
   }
 
   async getList() {
@@ -81,21 +103,29 @@ class Wr extends Command {
         choices: [
           { name: 'Open with Visual Studio Code', value: 0 },
           { name: 'Reveal in finder', value: 1 },
-          { name: 'Delete this project from Wr', value: 2 },
+          { name: 'Delete this project from WR', value: 2 },
         ],
       },
     ]);
 
+    const projectDir = Wr.dir + '/' + projectName;
     switch (action) {
       case 0:
-        Wr.openWithVSCode(Wr.dir + '/' + projectName);
-        cli.action.start(`Opening ${projectName} with Visual Studio Code`);
+        Wr.openWithVSCode(projectDir, () => {
+          cli.action.start(`Opening ${projectName} with Visual Studio Code`);
+        });
         break;
 
       case 1:
-        Wr.revealInFinder(Wr.dir + '/' + projectName);
-        cli.action.start(`Reveal ${projectName} in Finder`);
+        Wr.revealInFinder(projectDir, () => {
+          cli.action.start(`Reveal ${projectName} in Finder`);
+        });
         break;
+
+      case 2:
+        Wr.deleteProject(projectDir, () => {
+          cli.action.start(`Deleting ${projectName} from WR`);
+        });
 
       default:
         break;
