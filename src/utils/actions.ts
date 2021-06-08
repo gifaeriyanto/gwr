@@ -1,5 +1,6 @@
 import { exec, ExecException } from 'child_process';
 import { unlink } from 'fs';
+import { type } from 'os';
 
 export const openWithVSCode = (
   dir: string,
@@ -9,7 +10,9 @@ export const openWithVSCode = (
     stderr: string,
   ) => void,
 ) => {
-  exec(`code ${dir}`, callback);
+  if (type() === 'Darwin') {
+    exec(`open -a "Visual Studio Code" ${dir}`, callback);
+  }
 };
 
 export const revealInFinder = (
