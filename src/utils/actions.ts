@@ -10,8 +10,13 @@ export const openWithVSCode = (
     stderr: string,
   ) => void,
 ) => {
-  if (type() === 'Darwin') {
-    exec(`open -a "Visual Studio Code" ${dir}`, callback);
+  switch (type()) {
+    case 'Darwin':
+      exec(`open -a "Visual Studio Code" ${dir}`, callback);
+      break;
+
+    default:
+      break;
   }
 };
 
@@ -23,7 +28,21 @@ export const revealInFinder = (
     stderr: string,
   ) => void,
 ) => {
-  exec(`open ${dir}`, callback);
+  switch (type()) {
+    case 'Darwin':
+      exec(`open ${dir}`, callback);
+      break;
+
+    case 'Windows_NT':
+      exec(`start ${dir}`, callback);
+      break;
+
+    case 'Linux':
+      exec(`xdg-open ${dir}`, callback);
+
+    default:
+      break;
+  }
 };
 
 export const deleteProject = (
