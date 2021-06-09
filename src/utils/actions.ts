@@ -10,14 +10,20 @@ export const openWithVSCode = (
     stderr: string,
   ) => void,
 ) => {
-  switch (type()) {
-    case 'Darwin':
-      exec(`open -a "Visual Studio Code" ${dir}`, callback);
-      break;
+  exec(`code ${dir}`, (err, stdout, stderr) => {
+    if (err) {
+      switch (type()) {
+        case 'Darwin':
+          exec(`open -a "Visual Studio Code" ${dir}`, callback);
+          break;
 
-    default:
-      break;
-  }
+        default:
+          break;
+      }
+    } else {
+      callback && callback(err, stdout, stderr);
+    }
+  });
 };
 
 export const revealInFinder = (
