@@ -25,7 +25,7 @@ class Gwr extends Command {
     },
   ];
 
-  static flags = {
+  static flags: flags.Input<any> = {
     version: flags.version({ char: 'v' }),
     help: flags.help({ char: 'h' }),
   };
