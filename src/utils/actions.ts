@@ -1,54 +1,18 @@
-import { exec, ExecException } from 'child_process';
+import { cli } from 'cli-ux';
 import { unlink } from 'fs';
-import { type } from 'os';
 
-export const openWithVSCode = (
-  dir: string,
-  callback?: (
-    err: ExecException | null,
-    stdout: string,
-    stderr: string,
-  ) => void,
-) => {
-  exec(`code ${dir}`, (err, stdout, stderr) => {
-    if (err) {
-      switch (type()) {
-        case 'Darwin':
-          exec(`open -a "Visual Studio Code" ${dir}`, callback);
-          break;
+export const goToDirectory = (dir: string) => {
+  cli.open(`cd ${dir}`);
+};
 
-        default:
-          break;
-      }
-    } else {
-      callback && callback(err, stdout, stderr);
-    }
+export const openWithVSCode = (dir: string) => {
+  return cli.open(dir, {
+    app: 'Visual Studio Code',
   });
 };
 
-export const revealInFinder = (
-  dir: string,
-  callback?: (
-    err: ExecException | null,
-    stdout: string,
-    stderr: string,
-  ) => void,
-) => {
-  switch (type()) {
-    case 'Darwin':
-      exec(`open ${dir}`, callback);
-      break;
-
-    case 'Windows_NT':
-      exec(`start ${dir}`, callback);
-      break;
-
-    case 'Linux':
-      exec(`xdg-open ${dir}`, callback);
-
-    default:
-      break;
-  }
+export const revealInFinder = (dir: string) => {
+  return cli.open(dir);
 };
 
 export const deleteProject = (

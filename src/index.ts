@@ -3,8 +3,14 @@ import { exec } from 'child_process';
 import { existsSync, mkdirSync, readdirSync, symlink } from 'fs';
 import * as inquirer from 'inquirer';
 import cli from 'cli-ux';
-import { deleteProject, openWithVSCode, revealInFinder } from './utils/actions';
+import {
+  deleteProject,
+  // goToDirectory,
+  openWithVSCode,
+  revealInFinder,
+} from './utils/actions';
 import { basePath, getProjectName } from './utils/paths';
+import { ITask } from 'cli-ux/lib/action/base';
 
 inquirer.registerPrompt('search-list', require('inquirer-search-list'));
 
@@ -82,28 +88,35 @@ class Gwr extends Command {
         message: 'What you want to do?',
         type: 'list',
         choices: [
-          { name: 'Open with Visual Studio Code', value: 0 },
-          { name: 'Reveal in finder', value: 1 },
-          { name: 'Delete this project from GWR', value: 2 },
+          // { name: 'Go to directory', value: 0 },
+          { name: 'Open with Visual Studio Code', value: 1 },
+          { name: 'Reveal in finder', value: 2 },
+          { name: 'Delete this project from GWR', value: 3 },
         ],
       },
     ]);
 
     const projectDir = basePath + '/' + projectName;
     switch (action) {
-      case 0:
-        openWithVSCode(projectDir, () => {
+      // case 0:
+      //   goToDirectory(projectDir).then(() => {
+      //     cli.action.start(`Going to ${projectName} directory`);
+      //   });
+      //   break;
+
+      case 1:
+        openWithVSCode(projectDir).then(() => {
           cli.action.start(`Opening ${projectName} with Visual Studio Code`);
         });
         break;
 
-      case 1:
-        revealInFinder(projectDir, () => {
+      case 2:
+        revealInFinder(projectDir).then(() => {
           cli.action.start(`Reveal ${projectName} in Finder`);
         });
         break;
 
-      case 2:
+      case 3:
         deleteProject(projectDir, () => {
           cli.action.start(`Deleting ${projectName} from GWR`);
         });
