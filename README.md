@@ -52,6 +52,13 @@ And then, you will see prompts like this:
   project-3
 ```
 
+```
+? What you want to do? (Use arrow keys)
+❯ Open with Visual Studio Code
+  Reveal in finder
+  Delete this project from GWR
+```
+
 <!-- usagestop -->
 
 # Commands
