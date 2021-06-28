@@ -10,7 +10,6 @@ import {
   revealInFinder,
 } from './utils/actions';
 import { basePath, getProjectName } from './utils/paths';
-import { ITask } from 'cli-ux/lib/action/base';
 
 inquirer.registerPrompt('search-list', require('inquirer-search-list'));
 
